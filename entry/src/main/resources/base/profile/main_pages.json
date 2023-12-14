@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Demo",
+    "pages/Todo",
+    "pages/TableDemo"
+  ]
+}

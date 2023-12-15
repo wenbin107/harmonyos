@@ -20,7 +20,7 @@ export class SourceDataArray extends Array<SourceData> {
 @Component
 export struct Table {
   @Link sourceTitle:SourceTitle[]
-  @BuilderParam renderColumn:(row?:any,text?:string,index?:number) => void
+  @BuilderParam renderColumn:($$:{row?:any,text?:string,index?:number}) => void
   build() {
     Column() {
       TableHeader({

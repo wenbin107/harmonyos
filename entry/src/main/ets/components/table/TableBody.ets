@@ -5,12 +5,12 @@ import { SourceTitle } from './TableHeader'
 export struct TableBody {
   @Consume sourceColumn:SourceDataArray
   @Link sourceTitle:SourceTitle[]
-  @BuilderParam renderColumn:(row?:any,text?:string,index?:number) => void
+  @BuilderParam renderColumn:($$:{record?:any,text?:string,index?:number}) => void
   build() {
     Column(){
       ForEach(this.sourceColumn,
         (item:SourceData,index:number) => {
-          TableColumn({ item:item, sourceTitle:$sourceTitle,render:this.renderColumn})
+          TableColumn({ item:item, sourceTitle:$sourceTitle,renderColumn:this.renderColumn})
         }
       )
     }
@@ -20,7 +20,7 @@ export struct TableBody {
 struct TableColumn {
   @ObjectLink item:SourceData
   private defaultWidth:number = 100;
-  @BuilderParam render:(row?:any,text?:string,index?:number) => void
+  @BuilderParam renderColumn:($$:{record?:any,text?:string,index?:number}) => void
   @Link sourceTitle:SourceTitle[]
   getColumnWidth(item:SourceTitle):string{
     let totalWidth = this.sourceTitle.reduce((a,b) => {
@@ -52,7 +52,7 @@ struct TableColumn {
       ForEach(this.sourceTitle,
         (item: SourceTitle, index: number) => {
           Column() {
-            this.render(item,this.getText(item,index),index)
+            this.renderColumn({record:item,text:this.getText(item,index),index:index})
           }
           .width(this.getColumnWidth(item))
           .alignItems(this.getColumnAlign(item.align))

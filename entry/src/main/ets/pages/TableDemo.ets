@@ -40,8 +40,8 @@ struct TableDemo {
     })
   ];
   @Builder
-  renderColumn(record:SourceData,text:string,index:number){
-    Text(text).fontColor('red')
+  renderColumn($$:{record:SourceData,text:string,index:number}){
+    Text($$.text).fontColor('red')
   }
 
   build() {
@@ -57,7 +57,6 @@ struct TableDemo {
       Button("点击修改")
         .onClick(() => {
           this.sourceColumn[0].name = "修改完成"
-          this.sourceColumn.splice(0,1,this.sourceColumn[0])
         })
       Table({
         sourceTitle:$sourceTitle,

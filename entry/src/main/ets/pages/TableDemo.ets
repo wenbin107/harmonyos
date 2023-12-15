@@ -41,7 +41,13 @@ struct TableDemo {
   ];
   @Builder
   renderColumn($$:{record:SourceData,text:string,index:number}){
-    Text($$.text).fontColor('red')
+    // 修改第二列的样式
+    if( $$.index == 1){
+      Text($$.text).fontColor('red')
+    }else{
+      Text($$.text)
+    }
+
   }
 
   build() {

@@ -52,7 +52,7 @@ struct TableColumn {
       ForEach(this.sourceTitle,
         (item: SourceTitle, index: number) => {
           Column() {
-            this.renderColumn({record:item,text:this.getText(item,index),index:index})
+            this.renderColumn({record:this.item,text:this.getText(item,index),index:index})
           }
           .width(this.getColumnWidth(item))
           .alignItems(this.getColumnAlign(item.align))

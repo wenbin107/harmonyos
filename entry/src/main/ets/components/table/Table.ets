@@ -19,16 +19,16 @@ export class SourceDataArray extends Array<SourceData> {
 
 @Component
 export struct Table {
-  @Link sourceColumn:SourceDataArray
   @Link sourceTitle:SourceTitle[]
+  @BuilderParam renderColumn:(row?:any,text?:string,index?:number) => void
   build() {
     Column() {
       TableHeader({
         sourceTitle:$sourceTitle
       })
       TableBody({
-        sourceColumn:this.sourceColumn,
-        sourceTitle:$sourceTitle
+        sourceTitle:$sourceTitle,
+        renderColumn:this.renderColumn
       })
     }
     .width("100%")

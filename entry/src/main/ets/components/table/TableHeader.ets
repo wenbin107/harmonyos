@@ -1,11 +1,13 @@
+
+import { UiComponent } from '@ohos.UiTest'
+
 @Observed
 export class SourceTitle {
   title:ResourceStr
   width?: number
   key?:string
   align?:'left' | 'center' | 'right'
-
-  render?:(row?:any,text?:string|number,index?:number|string) => void
+  render?:(row:any,text:string|number,index:number|string) => void
 }
 
 @Extend(Row) function commonStyle() {

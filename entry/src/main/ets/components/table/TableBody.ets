@@ -3,13 +3,14 @@ import { SourceTitle } from './TableHeader'
 
 @Component
 export struct TableBody {
-  @ObjectLink sourceColumn:SourceDataArray
+  @Consume sourceColumn:SourceDataArray
   @Link sourceTitle:SourceTitle[]
+  @BuilderParam renderColumn:(row?:any,text?:string,index?:number) => void
   build() {
     Column(){
       ForEach(this.sourceColumn,
         (item:SourceData,index:number) => {
-          TableColumn({ item:item, sourceTitle:$sourceTitle})
+          TableColumn({ item:item, sourceTitle:$sourceTitle,render:this.renderColumn})
         }
       )
     }
@@ -19,6 +20,7 @@ export struct TableBody {
 struct TableColumn {
   @ObjectLink item:SourceData
   private defaultWidth:number = 100;
+  @BuilderParam render:(row?:any,text?:string,index?:number) => void
   @Link sourceTitle:SourceTitle[]
   getColumnWidth(item:SourceTitle):string{
     let totalWidth = this.sourceTitle.reduce((a,b) => {
@@ -42,17 +44,6 @@ struct TableColumn {
         break;
     }
   }
-  @Builder
-  render(item:SourceTitle,index:number){
-    Column(){
-      if(item.render && typeof item.render === 'function'){
-        item.render(this.item,this.getText(item,index),index)
-      }else{
-        Text(this.getText(item,index))
-      }
-    }
-  }
-
   getText(item:SourceTitle,index:number):string{
     return String((this.item as any)[item.key]) || ''
   }
@@ -61,7 +52,7 @@ struct TableColumn {
       ForEach(this.sourceTitle,
         (item: SourceTitle, index: number) => {
           Column() {
-            this.render(item,index);
+            this.render(item,this.getText(item,index),index)
           }
           .width(this.getColumnWidth(item))
           .alignItems(this.getColumnAlign(item.align))
@@ -71,5 +62,4 @@ struct TableColumn {
     }
   }
 }
-
 

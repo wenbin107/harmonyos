@@ -3,7 +3,7 @@ import { SourceTitle } from './TableHeader'
 
 @Component
 export struct TableBody {
-  @Consume sourceColumn:SourceDataArray
+  @ObjectLink sourceColumn:SourceDataArray
   @Link sourceTitle:SourceTitle[]
   @BuilderParam renderColumn:($$:{record?:any,text?:string,index?:number}) => void
   build() {

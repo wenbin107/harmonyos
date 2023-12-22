@@ -20,7 +20,12 @@ export class SourceDataArray extends Array<SourceData> {
 @Component
 export struct Table {
   @Link sourceTitle:SourceTitle[]
+  @Link sourceColumn:SourceDataArray;
   @BuilderParam renderColumn:($$:{row?:any,text?:string,index?:number}) => void
+  update(){
+    console.log(JSON.stringify(this.sourceColumn))
+    // this.sourceColumn = this.sourceColumn;
+  }
   build() {
     Column() {
       TableHeader({
@@ -28,6 +33,7 @@ export struct Table {
       })
       TableBody({
         sourceTitle:$sourceTitle,
+        sourceColumn:this.sourceColumn,
         renderColumn:this.renderColumn
       })
     }

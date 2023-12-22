@@ -4,17 +4,12 @@ import { SourceTitle } from '../components/table/TableHeader';
 @Entry
 @Component
 struct TableDemo {
-  @Provide sourceTitle: SourceTitle[] = [
+  @State sourceTitle: SourceTitle[] = [
     {
       title: "ID",
       key: 'id',
       width: 200,
       align: 'center',
-    },
-    {
-      title: "ID",
-      key: 'id',
-      width: 200,
     },
     {
       title: "姓名",
@@ -27,7 +22,7 @@ struct TableDemo {
       width: 200,
     }
   ]
-  @Provide sourceColumn: SourceData[] = [
+  @State sourceColumn: SourceData[] = [
     new SourceData({
       id: 1,
       name: 'xiaoming',
@@ -84,6 +79,7 @@ struct TableDemo {
         })
       Table({
         sourceTitle: $sourceTitle,
+        sourceColumn: $sourceColumn,
         renderColumn: this.renderColumn
       })
     }
